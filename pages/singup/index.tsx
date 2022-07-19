@@ -1,53 +1,39 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { stringify } from "querystring";
 
-export default function index(){
+const Signup = () => {
 
-    useEffect( () => {
-         Name1()
-
-    }, [] )
-
-    async function Name1() {
+    const signup = async () => {
 
         
-
+        const api = axios.create({
+            baseURL: `https://bitwine-server.herokuapp.com/api`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Credentials': 'true'
+            },
+            withCredentials: true,
+        })
 
         /*******************************************/
-        
-        const axiosPost = await axios.post('https://bitwine-server.herokuapp.com/api/users/signup', JSON.stringify({
+        try {
+            
+            const axiosPost = await api.post('/users/signup', JSON.stringify({
                 email: 'kevinpruebaApi@gmail.com',
                 password: '3214',
                 name: 'Fred'
-            }) 
-        )
-            console.log( axiosPost)
-
-
-        /********************************************** */
-
-
-      /*
-      
-      const formData = new FormData();
-
-        formData.append("email","kevinprueba@gmail.com");
-        formData.append("password", "1143");
-        formData.append("name","Kevin");
-        try {
-            const res = await fetch('https://bitwine-server.herokuapp.com/api/users/signup',{method:'POST', body:formData , } )
-            console.log(res)
-            return {
-                props:{
-                    
-                }
-            }
+            }))
+            console.log("🚀 ~ file: index.tsx ~ line 31 ~ Name1 ~ axiosPost", axiosPost.data)
         } catch (error) {
-            console.log(error)
-        }*/
-
+            console.log("🚀 ~ file: index.tsx ~ line 26 ~ Name1 ~ error", error)
+            
+        }
     }
+
+    useEffect( () => {
+        signup()
+    }, [])
+
 
     
     return(
@@ -57,6 +43,7 @@ export default function index(){
     );
 }
 
+export default Signup
 
 
 
